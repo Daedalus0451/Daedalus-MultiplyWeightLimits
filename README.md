@@ -4,6 +4,9 @@ Modifies your PMC's OverweightLimits to a multiplier of your choice set in the c
 Multiplies the following globals:
 
 Globals.Configuration.Stamina.BaseOverweightLimits
+
 Globals.Configuration.Stamina.SprintOverweightLimits
+
 Globals.Configuration.Stamina.WalkOverweightLimits
+
 Globals.Configuration.Stamina.WalkSpeedOverweightLimits
