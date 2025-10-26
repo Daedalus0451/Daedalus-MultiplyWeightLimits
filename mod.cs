@@ -24,7 +24,7 @@ public record ModMetadata : AbstractModMetadata
     public override string Name { get; init; } = "MultiplyWeightLimits";
     public override string Author { get; init; } = "Daedalus";
     public override List<string>? Contributors { get; init; } = null;
-    public override SemanticVersioning.Version Version { get; init; } = new("1.0.0");
+    public override SemanticVersioning.Version Version { get; init; } = new("1.0.1");
     public override SemanticVersioning.Range SptVersion { get; init; } = new("~4.0.1");
 
     public override List<string>? Incompatibilities { get; init; } = null;
@@ -54,6 +54,7 @@ public class MultiplyWeightLimits(
 
         var modConfig = _modHelper.GetJsonDataFromFile<ModConfig>(pathToConfig, "config.json");
 
+        //Modify your PMC's OverweightLimits
         _globals.Configuration.Stamina.BaseOverweightLimits.X *= modConfig.WeightLimitsMultiplier;
         _globals.Configuration.Stamina.BaseOverweightLimits.Y *= modConfig.WeightLimitsMultiplier;
         _globals.Configuration.Stamina.SprintOverweightLimits.X *= modConfig.WeightLimitsMultiplier;
@@ -62,6 +63,11 @@ public class MultiplyWeightLimits(
         _globals.Configuration.Stamina.WalkOverweightLimits.Y *= modConfig.WeightLimitsMultiplier;
         _globals.Configuration.Stamina.WalkSpeedOverweightLimits.X *= modConfig.WeightLimitsMultiplier;
         _globals.Configuration.Stamina.WalkSpeedOverweightLimits.Y *= modConfig.WeightLimitsMultiplier;
+
+        //Increase max inertia limit
+        _globals.Configuration.Inertia.InertiaLimits.Y *= modConfig.WeightLimitsMultiplier;
+
+        _logger.Success($"Multiplied your PMC's OverweightLimits and maximum InertiaLimits by {modConfig.WeightLimitsMultiplier}");
 
         return Task.CompletedTask;
     }
